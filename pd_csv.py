@@ -21,3 +21,5 @@ df['検査実施_件数'] = df['検査実施_件数'].apply(lambda x: f"{int(x):
 
 # 最初の57行だけ表示
 print(df.head(56))
+
+
