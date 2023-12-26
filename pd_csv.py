@@ -19,7 +19,13 @@ df['実施_年月日'] = df['実施_年月日'].dt.strftime('%Y年%m月%d日')
 # 実施_件数の値を整数に変換して、文字列としてフォーマット
 df['検査実施_件数'] = df['検査実施_件数'].apply(lambda x: f"{int(x):,}件" if pd.notnull(x) else "")
 
+
 # 最初の57行だけ表示
 print(df.head(56))
 
+df['検査実施_件数'] = pd.to_numeric(df['検査実施_件数'].str.replace('件', '').str.replace(',', ''), errors='coerce').fillna(0).astype(int)
+# 合計値を計算して出力
+total_inspections = df['検査実施_件数'].head(56).sum()
+print(f"検査実施件数の合計: {total_inspections}件")
 
+df.to_csv("data/summarized.csv")
